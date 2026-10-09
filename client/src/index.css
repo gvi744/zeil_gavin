@@ -91,14 +91,14 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; margin: 0 0 0.5rem
 .nav a.active { background: var(--panel); color: var(--accent); }
 .wordmark {
   font-weight: 900;
-  font-size: 2.1rem;
-  letter-spacing: -0.06em;
+  font-size: 1.85rem;
+  letter-spacing: -0.055em;
   line-height: 1;
   color: var(--accent);
   text-decoration: none;
   white-space: nowrap;
 }
-.wordmark span { color: var(--text); font-weight: 800; font-size: 0.6em; letter-spacing: -0.03em; }
+.wordmark span { color: var(--text); }
 .header-cta { display: flex; justify-content: flex-end; }
 
 /* Soft hero glow behind the top of every page */
@@ -453,10 +453,10 @@ main {
 .footer-head { margin: 0 0 0.25rem; opacity: 0.7; font-size: 0.82rem; }
 .footer-wordmark {
   margin: 2.25rem 0 0;
-  padding-bottom: 0.22em; /* room for the g descender and underscore */
+  padding-bottom: 0.12em;
   font-weight: 900;
-  font-size: clamp(3.5rem, 15vw, 12.5rem);
-  letter-spacing: -0.065em;
+  font-size: clamp(2.6rem, 12.5vw, 10.5rem);
+  letter-spacing: -0.045em;
   line-height: 0.9;
   white-space: nowrap;
 }
@@ -467,7 +467,7 @@ main {
   .utility-note { display: none; }
   .utility-inner { justify-content: flex-end; }
   .header-inner { grid-template-columns: auto 1fr; min-height: 0; padding-top: 0.75rem; padding-bottom: 0.6rem; row-gap: 0.5rem; }
-  .wordmark { grid-column: 1; grid-row: 1; font-size: 1.7rem; }
+  .wordmark { grid-column: 1; grid-row: 1; font-size: 1.45rem; }
   .header-cta { grid-column: 2; grid-row: 1; }
   .header-cta .btn { padding: 0.55rem 1rem; font-size: 0.88rem; }
   .nav { grid-column: 1 / -1; grid-row: 2; margin-left: -0.6rem; }

@@ -61,8 +61,8 @@ export default function App() {
               </NavLink>
             ))}
           </nav>
-          <Link to="/" className="wordmark" aria-label="zeil_gavin home">
-            zeil<span>_gavin</span>
+          <Link to="/" className="wordmark" aria-label="CandidatesFY home">
+            Candidates<span>FY</span>
           </Link>
           <div className="header-cta">
             <Link to={cta.to} className="btn btn-outline">{cta.label}</Link>
@@ -103,7 +103,7 @@ export default function App() {
               <span>A hackathon prototype by Gavin.</span>
             </div>
           </div>
-          <p className="footer-wordmark" aria-hidden="true">zeil_gavin</p>
+          <p className="footer-wordmark" aria-hidden="true">CandidatesFY</p>
         </div>
       </footer>
     </div>

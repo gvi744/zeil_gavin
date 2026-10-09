@@ -1,4 +1,4 @@
-# zeil_gavin
+# CandidatesFY
 
 Hiring managers swipe through Hinge-style applicant cards (a project image and three short, fun answers) instead of reading a stack of identical resumes, with AI writing the questions and ranking the applicants.
 
@@ -19,9 +19,9 @@ You need Node 18+, a MongoDB Atlas cluster and a Gemini API key.
 1. Create `server/.env` (see `server/.env.example`):
    ```
    GEMINI_API_KEY=your-key
-   MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/zeil_gavin
+   MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/candidatesfy
    ```
-   Put the database name in the URI (`/zeil_gavin` above). Without one, Mongo uses a database called `test`.
+   Put the database name in the URI (`/candidatesfy` above). Without one, Mongo uses a database called `test`.
 2. Install and seed (one job, nine pre-scored applicants, no AI calls):
    ```
    cd server && npm install && npm run seed
