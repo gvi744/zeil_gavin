@@ -21,7 +21,7 @@ function isRetryable(err) {
 }
 
 // One structured-output call with retry + exponential backoff on 429 / 5xx.
-async function callJson({ contents, schema, systemInstruction, label }) {
+async function callJson({ contents, schema, systemInstruction, temperature, label }) {
   let lastErr;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
@@ -30,6 +30,7 @@ async function callJson({ contents, schema, systemInstruction, label }) {
         contents,
         config: {
           systemInstruction,
+          temperature,
           responseMimeType: 'application/json',
           responseSchema: schema,
           httpOptions: { timeout: REQUEST_TIMEOUT_MS },
@@ -49,10 +50,10 @@ async function callJson({ contents, schema, systemInstruction, label }) {
 
 // callJson + shape validation. Retries once on invalid output, then returns
 // the fallback. Never throws.
-async function generateValidated({ contents, schema, systemInstruction, validate, fallback, label }) {
+async function generateValidated({ contents, schema, systemInstruction, temperature, validate, fallback, label }) {
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
-      const data = await callJson({ contents, schema, systemInstruction, label });
+      const data = await callJson({ contents, schema, systemInstruction, temperature, label });
       const valid = validate(data);
       if (valid) return { data: valid, usedFallback: false };
       console.warn(`[ai:${label}] invalid response shape (attempt ${attempt}):`, JSON.stringify(data));

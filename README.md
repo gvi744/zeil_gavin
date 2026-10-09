@@ -5,7 +5,7 @@ Hiring managers swipe through Hinge-style applicant cards (a project image and t
 ## Features
 
 - **For You Page (FYP) for managers.** One applicant card at a time, best match first: name, project image, three Q&As, matched skill tags and a one-line "Why you're seeing this". Skip or Shortlist with the buttons or the ← / → keys, and open the resume in a new tab.
-- **AI question writer and critic.** When creating a job, one AI drafts five Hinge-style questions and a second AI reviews each one, flagging any that are generic, irrelevant or risky (could touch age, family, health, religion, nationality and so on). The manager picks exactly three.
+- **AI question writer and critic.** When creating a job, one AI drafts five Hinge-style questions and a second AI reviews each one, flagging any that are too technical, read like a standard interview question, aren't playful, are generic or irrelevant, or are risky (could touch age, family, health, religion, nationality and so on). The manager picks exactly three.
 - **AI applicant scoring.** Each application is scored once, when it's submitted: Gemini reads the resume PDF and the three answers and returns a 0–100 score, the job tags it found evidence for, and a one-sentence reason. Viewing the feed costs no AI calls.
 - **Applicant portal.** Browse jobs, upload a resume (PDF) and a project image, and answer the three questions (200 characters each).
 - **Manager / Applicant toggle.** Switch views from the top right. There's no login; it's a prototype.

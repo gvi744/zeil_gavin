@@ -23,9 +23,9 @@ Nice to have: experience with Vite, testing libraries, or design systems.
 Hybrid in Auckland CBD, 3 days in office. Mentoring and a learning budget included.`,
   tags: ['react', 'typescript', 'css', 'accessibility', 'git'],
   questions: [
-    "What's a website you use every week that quietly annoys you, and how would you fix it?",
-    'Tell us about the last CSS rabbit hole you fell into. Did you climb out?',
-    'If your git history could talk, what would it say about you?',
+    "The bug I'm weirdly proud of fixing",
+    "I'll know it's a good team when...",
+    'The last thing I built that nobody asked for',
   ],
 };
 
@@ -39,9 +39,9 @@ const APPLICANTS = [
       'Built and shipped an accessible React + TypeScript bus timetable PWA with a 100 Lighthouse accessibility score and screen-reader testing.',
     colors: [[16, 185, 129], [59, 130, 246]],
     answers: [
-      "My uni's course enrolment page. The timetable is a giant table with no headers for screen readers. I'd rebuild it as a grid with proper th scope and keyboard nav between slots.",
-      'Spent a weekend making a sticky table header work inside a horizontally scrolling container. Turns out position: sticky and overflow don\'t get along. Won with a wrapper div and a lot of coffee.',
-      '"Small commits, clear messages, and one embarrassing \'fix typo in fix for typo\' from 2am." I rebase before every PR now.',
+      'A focus trap that only broke in Safari with VoiceOver running. Two evenings and one very patient friend testing on her phone, totally worth it.',
+      "When people review PRs to help, not to win, and someone asks 'can a keyboard user do this?' before I have to.",
+      'A dark mode for my bus timetable app. Nobody requested it, but I check buses at 6am and my eyes did.',
     ],
     resume: [
       'BSc Computer Science, University of Auckland (2025)',
@@ -61,9 +61,9 @@ const APPLICANTS = [
       'Rewrote a student club website in React and TypeScript with a custom CSS design system, though accessibility work is not mentioned.',
     colors: [[99, 102, 241], [236, 72, 153]],
     answers: [
-      "Our flatmate bill-splitting app. It makes you scroll through every past bill to add a new one. I'd pin 'Add bill' to the top and group history by month.",
-      "Tried to make a card flip animation feel 'springy' with only CSS. Ended up learning cubic-bezier by hand. Climbed out, but my keyframes are art now.",
-      "That I'm the guy who opens a PR for a one-line change with a three-paragraph description. My team liked it, honestly.",
+      "A card flip animation that stuttered only on my tutor's ancient Android. Swapped top/left for transforms, then wrote a three-paragraph PR about it.",
+      "When a one-line PR still gets a thoughtful review, and nobody's scared to say 'I don't get this'.",
+      'A component library for my badminton club site. The whole site had four buttons. It now has twelve button variants.',
     ],
     resume: [
       'BE Software Engineering (Part IV), University of Auckland',
@@ -83,9 +83,9 @@ const APPLICANTS = [
       'Has two solid React side projects with careful responsive CSS, but no TypeScript and no evidence of accessibility work.',
     colors: [[245, 158, 11], [239, 68, 68]],
     answers: [
-      'Recipe sites. 3000 words about someone\'s grandmother before the ingredients. I\'d add a sticky "jump to recipe" button and collapse the story by default.',
-      'Making a masonry layout without JavaScript. I tried columns, then grid with dense packing, then gave up and used columns again. Partial climb.',
-      '"Commits a lot on Sundays." My side projects only happen on weekends, so the graph looks like a barcode.',
+      'My recipe app showed every ingredient twice. It was a missing key in a list, found at 11pm on a Sunday.',
+      "When someone shares what they're stuck on before it turns into a 'quick question' at 5pm.",
+      'A "jump to recipe" button for my own cooking blog, because I got sick of scrolling past my own stories.',
     ],
     resume: [
       'Diploma in Web Development, Yoobee College (2024)',
@@ -103,9 +103,9 @@ const APPLICANTS = [
       'Bootcamp graduate with a Next.js group project and good team Git habits, but limited CSS depth and no TypeScript yet.',
     colors: [[14, 165, 233], [34, 197, 94]],
     answers: [
-      "Online banking that logs me out after 2 minutes while I'm reading a statement. A visible countdown with an 'I'm still here' button would fix it.",
-      "I don't really fall into CSS rabbit holes, I reach for Tailwind and move on. Probably something I should get better at.",
-      'That I learned branching the hard way after force-pushing over a teammate\'s work in week 3 of bootcamp. Never again.',
+      "Less a bug, more a crime: I force-pushed over a teammate's work in bootcamp, then rescued it with git reflog. Never again.",
+      'When standups are short and people actually say what is blocking them.',
+      'A Discord bot that reminded my bootcamp group to drink water. Mostly it got used to spam each other.',
     ],
     resume: [
       'Full Stack Web Development Bootcamp, Dev Academy Aotearoa (2025)',
@@ -123,9 +123,9 @@ const APPLICANTS = [
       'UX designer moving into development with strong accessibility knowledge and CSS skills, but only beginner-level React.',
     colors: [[168, 85, 247], [251, 191, 36]],
     answers: [
-      'Airline check-in forms that only show errors after you submit, then clear half your fields. Inline validation and keeping inputs would save so much pain.',
-      "Getting focus rings to look good without removing them. :focus-visible was the answer. Designers who say 'remove the blue outline' are my nemesis now.",
-      'Mostly that I commit Figma exports into the repo. Still learning what belongs in git and what doesn\'t.',
+      'My contrast checker said everything passed. I was comparing the wrong two colours the whole time. Very humbling Tuesday.',
+      "When designers and devs sit in the same review and nobody says 'that's not my job'.",
+      'A browser extension that shows the tab order on any page. I built it to win an argument with a developer about focus.',
     ],
     resume: [
       'UX/UI Designer, Spark Agency (2022-2025)',
@@ -143,9 +143,9 @@ const APPLICANTS = [
       'Comfortable with TypeScript and Git from Node backend work, but has built very little UI and no React projects.',
     colors: [[71, 85, 105], [14, 165, 233]],
     answers: [
-      "Most API docs sites. The search never finds the endpoint I need. I'd index request/response examples, not just headings.",
-      "Centring a div. Genuinely. I'm a backend person, I just used flexbox until it worked.",
-      '"Writes tests before features, writes READMEs nobody reads." I\'m proud of both.',
+      'A timezone bug that double-billed only customers in the Chatham Islands. One week and a whiteboard full of UTC offsets.',
+      'When tests count as part of the feature, not a chore for later.',
+      "A CLI that writes our team's standup notes from git commits. I'm the only one who uses it.",
     ],
     resume: [
       'BSc Information Technology, AUT (2024)',
@@ -164,9 +164,9 @@ const APPLICANTS = [
       'Data analyst with strong Python and Tableau dashboards, but no frontend frameworks or CSS experience relevant to this role.',
     colors: [[234, 88, 12], [250, 204, 21]],
     answers: [
-      "Power BI's filter pane. Too many nested menus. I'd want saved filter presets you can toggle with one click.",
-      "I haven't done much CSS. The closest was styling a Streamlit dashboard and I mostly used the defaults.",
-      'That I version my Jupyter notebooks as final_v2_REAL_final.ipynb, but I\'m slowly learning proper branches.',
+      'A sales dashboard showed revenue doubling overnight. A CSV had been imported twice, and I caught it ten minutes before the exec meeting.',
+      "When people ask 'what does the data actually say?' before deciding.",
+      "A Tableau dashboard tracking my flat's power bill by appliance. My flatmates were less excited than I was.",
     ],
     resume: [
       'BCom Business Analytics, Victoria University of Wellington (2023)',
@@ -184,9 +184,9 @@ const APPLICANTS = [
       'Graphic designer with a strong visual portfolio and some Webflow CSS, but no JavaScript, React or Git experience.',
     colors: [[244, 63, 94], [253, 186, 116]],
     answers: [
-      'Instagram\'s new grid crop. It cuts off half my posters. Let creators choose the crop per post.',
-      'Trying to match a print gradient exactly in Webflow. Screens and paper just don\'t agree. I accepted defeat gracefully.',
-      "It would ask what git is. I save everything to Dropbox with dates in the filename.",
+      'Not really code, but a Webflow menu that vanished on iPads. I fixed it by deleting things until it came back.',
+      "When feedback comes with a reason, not just 'make it pop'.",
+      "A poster series of my street's cafes drawn as album covers. Three of the owners hung theirs up.",
     ],
     resume: [
       'Bachelor of Design (Visual Communication), Massey University (2022)',
@@ -203,9 +203,9 @@ const APPLICANTS = [
       'Machine learning student focused on PyTorch research projects, with no frontend, CSS or React work shown.',
     colors: [[30, 41, 59], [100, 116, 139]],
     answers: [
-      "Kaggle's notebook editor. It freezes when outputs get big. I'd paginate cell outputs.",
-      "No CSS rabbit holes. I did go down a CUDA version rabbit hole for three days though, if that counts.",
-      '"Trains models at 3am, commits at 3:05am with message: works now."',
+      'My model hit 99% accuracy, which was the bug. Test images had leaked into the training set.',
+      'When people share failed experiments as openly as the ones that worked.',
+      "A model that predicts whether my flatmate will do the dishes. It's 80% accurate and he's not thrilled.",
     ],
     resume: [
       'MSc Data Science (in progress), University of Canterbury',
