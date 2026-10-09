@@ -48,6 +48,8 @@ MERN monorepo: `client/` is React + Vite + React Router with plain CSS, and `ser
 - Calls retry with exponential backoff on 429 and 5xx errors (up to 3 attempts), and time out after 45 seconds.
 - Every response is checked against the expected shape. Invalid output is retried once, then a fallback is used: five default questions, or a score of 0 with "Couldn't score this application". A bad AI response never fails a request.
 
+**Look and feel.** The visual style follows zeil.com: a white canvas with a soft lavender and lime glow, purple pill buttons, lavender panels, a utility bar above a centred wordmark, and a purple footer with a giant wordmark. I didn't copy any Zeil logos or images; the wordmark is plain type. Images are preloaded so a card never appears before its picture: the feed waits for the first card's image, loads the next three in the background, and the shortlist preloads every image so expanding a row is instant.
+
 Uploads are stored in Mongo as Buffers (multer memory storage, 2MB limit each) and served from `/api/files/:applicantId/resume|image`.
 
 ## Deploy on Render
@@ -63,6 +65,7 @@ Free-tier instances sleep when idle, so the first request after a while can take
 ## What I didn't write
 
 - **Libraries:** React, React Router, Vite, Express, Mongoose, Multer, dotenv and Google's `@google/genai` SDK.
+- **Font:** Geist by Vercel, loaded from Google Fonts (SIL Open Font License).
 - **AI coding assistant:** much of the code was written with Claude Code (Anthropic's AI coding assistant), working from my spec and build plan. I made the product and design decisions, reviewed the code and tested the flows.
 
 ## Author

@@ -14,9 +14,13 @@ export default function Jobs() {
   }, []);
 
   return (
-    <div className="page">
-      <h1>Open roles</h1>
-      <p className="muted">No cover letters. Show us a project and answer three quick questions.</p>
+    <div className="page page-wide">
+      <header className="page-head hero">
+        <h1>
+          Show your work, <span className="accent">not your template</span>
+        </h1>
+        <p>No cover letters. Share one project and answer three quick questions.</p>
+      </header>
 
       {error && <p className="error" role="alert">{error}</p>}
       {!jobs && !error && <p className="muted">Loading…</p>}
@@ -27,6 +31,7 @@ export default function Jobs() {
           jobs.map((j) => (
             <li key={j._id}>
               <Link to={`/jobs/${j._id}`} className="job-card">
+                <span className="job-badge">⚡ 3 questions · 1 project</span>
                 <h2>{j.title}</h2>
                 <p className="muted">{snippet(j.description)}</p>
                 <MatchTags tags={j.tags} />

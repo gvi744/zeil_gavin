@@ -48,12 +48,12 @@ export default function CreateJob() {
 
   return (
     <div className="page">
-      <h1>Create a job</h1>
-      <p className="muted">
-        AI drafts five fun questions, a second AI reviews them for fairness, and you pick three.
-      </p>
+      <header className="page-head">
+        <h1>Post a job</h1>
+        <p>AI drafts five fun questions, a second AI reviews them for fairness, and you pick three.</p>
+      </header>
 
-      <form className="form" onSubmit={publish}>
+      <form className="form create-card" onSubmit={publish}>
         <label className="field">
           <span>Job title</span>
           <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Junior Frontend Developer" required />

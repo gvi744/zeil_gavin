@@ -41,18 +41,33 @@ export default function App() {
         ]
       : [{ to: '/jobs', label: 'Jobs' }];
 
+  const cta = mode === 'Manager' ? { to: '/manager/feed', label: 'Review candidates' } : { to: '/jobs', label: 'Find jobs' };
+
   return (
     <div className="app">
-      <header className="topbar">
-        <Link to="/" className="brand">zeil_gavin</Link>
-        <nav className="nav">
-          {links.map((l) => (
-            <NavLink key={l.to} to={l.to}>
-              {l.label}
-            </NavLink>
-          ))}
-        </nav>
-        <ModeToggle mode={mode} onChange={switchMode} />
+      <div className="utility-bar">
+        <div className="wrap utility-inner">
+          <span className="utility-note">Built for the ZEIL hackathon</span>
+          <ModeToggle mode={mode} onChange={switchMode} />
+        </div>
+      </div>
+
+      <header className="site-header">
+        <div className="wrap header-inner">
+          <nav className="nav" aria-label="Main">
+            {links.map((l) => (
+              <NavLink key={l.to} to={l.to}>
+                {l.label}
+              </NavLink>
+            ))}
+          </nav>
+          <Link to="/" className="wordmark" aria-label="zeil_gavin home">
+            zeil<span>_gavin</span>
+          </Link>
+          <div className="header-cta">
+            <Link to={cta.to} className="btn btn-outline">{cta.label}</Link>
+          </div>
+        </div>
       </header>
 
       <main>
@@ -68,6 +83,29 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+
+      <footer className="site-footer">
+        <div className="wrap footer-inner">
+          <div className="footer-cols">
+            <div>
+              <p className="footer-head">Job seekers</p>
+              <Link to="/jobs">Browse jobs</Link>
+            </div>
+            <div>
+              <p className="footer-head">Hiring managers</p>
+              <Link to="/manager/new">Post a job</Link>
+              <Link to="/manager/feed">For You Page</Link>
+              <Link to="/manager/shortlist">Shortlist</Link>
+            </div>
+            <div>
+              <p className="footer-head">About</p>
+              <span>Blind first look, AI-ranked.</span>
+              <span>A hackathon prototype by Gavin.</span>
+            </div>
+          </div>
+          <p className="footer-wordmark" aria-hidden="true">zeil_gavin</p>
+        </div>
+      </footer>
     </div>
   );
 }

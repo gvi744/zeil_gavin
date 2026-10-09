@@ -4,6 +4,7 @@ import { api } from '../api.js';
 import JobSelect from '../components/JobSelect.jsx';
 import MatchTags from '../components/MatchTags.jsx';
 import { useJobSelection } from '../hooks/useJobSelection.js';
+import { preloadImages } from '../preload.js';
 
 export default function Shortlist() {
   const { jobs, jobId, job, selectJob, error: jobsError } = useJobSelection('/manager/shortlist');
@@ -16,7 +17,14 @@ export default function Shortlist() {
     setList(null);
     setOpen(null);
     setError('');
-    api.getShortlist(jobId).then(setList).catch((e) => setError(e.message));
+    api
+      .getShortlist(jobId)
+      .then((l) => {
+        setList(l);
+        // Rows render immediately; images download now so expanding is instant.
+        preloadImages(l.map((a) => a.imageUrl));
+      })
+      .catch((e) => setError(e.message));
   }, [jobId]);
 
   const shownError = error || jobsError;
@@ -32,11 +40,13 @@ export default function Shortlist() {
 
   return (
     <div className="page">
+      <header className="page-head">
+        <h1>Shortlist</h1>
+        <p className="small">Names are hidden until shortlisting to reduce bias.</p>
+      </header>
       <div className="feed-top">
         <JobSelect jobs={jobs} jobId={jobId} onChange={selectJob} />
       </div>
-      <h1>Shortlist</h1>
-      <p className="muted small">Names are hidden until shortlisting to reduce bias.</p>
 
       {shownError && <p className="error" role="alert">{shownError}</p>}
       {!list && !shownError && <p className="muted">Loading…</p>}

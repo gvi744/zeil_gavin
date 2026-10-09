@@ -1,3 +1,4 @@
+// Utility-bar switch between the two sides of the product.
 export default function ModeToggle({ mode, onChange }) {
   return (
     <div className="mode-toggle" role="group" aria-label="View mode">

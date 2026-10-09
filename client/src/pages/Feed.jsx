@@ -4,8 +4,10 @@ import { api } from '../api.js';
 import ApplicantCard from '../components/ApplicantCard.jsx';
 import JobSelect from '../components/JobSelect.jsx';
 import { useJobSelection } from '../hooks/useJobSelection.js';
+import { preloadImages, preloadWithTimeout } from '../preload.js';
 
 const SLIDE_MS = 320;
+const PRELOAD_AHEAD = 3;
 
 export default function Feed() {
   const { jobs, jobId, job, selectJob, error: jobsError } = useJobSelection('/manager/feed');
@@ -18,16 +20,28 @@ export default function Feed() {
   // Load this job's feed (pre-scored, no AI calls here).
   useEffect(() => {
     if (!jobId) return;
+    let cancelled = false;
     setQueue(null);
     setError('');
     api
       .getFeed(jobId)
-      .then((list) => {
+      .then(async (list) => {
+        // Keep the skeleton up until the first card's image is ready (capped).
+        if (list[0]) await preloadWithTimeout(list[0].imageUrl);
+        if (cancelled) return;
         setQueue(list);
         setTotal(list.length);
       })
-      .catch((e) => setError(e.message));
+      .catch((e) => !cancelled && setError(e.message));
+    return () => {
+      cancelled = true;
+    };
   }, [jobId]);
+
+  // Fetch the next few cards' images in the background.
+  useEffect(() => {
+    if (queue) preloadImages(queue.slice(1, 1 + PRELOAD_AHEAD).map((a) => a.imageUrl));
+  }, [queue]);
 
   const current = queue && queue[0];
   const shownError = error || jobsError;
