@@ -18,21 +18,34 @@ const applicantSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Shape sent to the client: no buffers, file URLs instead.
-applicantSchema.methods.toCard = function toCard() {
+// Short anonymous label shown on the blind feed, e.g. "Candidate 3F9A".
+applicantSchema.virtual('code').get(function code() {
+  return this._id.toString().slice(-4).toUpperCase();
+});
+
+// Blind feed shape: no name, no resume (it contains the name), no buffers.
+applicantSchema.methods.toFeedCard = function toFeedCard() {
   const id = this._id.toString();
   return {
     _id: id,
-    jobId: this.jobId.toString(),
-    name: this.name,
+    code: this.code,
     answers: this.answers,
     score: this.score,
     matchedTags: this.matchedTags,
     reason: this.reason,
+    imageUrl: `/api/files/${id}/image`,
+  };
+};
+
+// Full shape, only for shortlisted applicants (and the applicant's own submit).
+applicantSchema.methods.toCard = function toCard() {
+  return {
+    ...this.toFeedCard(),
+    jobId: this.jobId.toString(),
+    name: this.name,
     status: this.status,
     createdAt: this.createdAt,
-    resumeUrl: `/api/files/${id}/resume`,
-    imageUrl: `/api/files/${id}/image`,
+    resumeUrl: `/api/files/${this._id}/resume`,
   };
 };
 

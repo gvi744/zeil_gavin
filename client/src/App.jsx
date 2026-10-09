@@ -5,6 +5,7 @@ import Jobs from './pages/Jobs.jsx';
 import JobDetail from './pages/JobDetail.jsx';
 import CreateJob from './pages/CreateJob.jsx';
 import Feed from './pages/Feed.jsx';
+import Shortlist from './pages/Shortlist.jsx';
 
 function NotFound() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
       ? [
           { to: '/manager/new', label: 'Create job' },
           { to: '/manager/feed', label: 'FYP' },
+          { to: '/manager/shortlist', label: 'Shortlist' },
         ]
       : [{ to: '/jobs', label: 'Jobs' }];
 
@@ -61,6 +63,8 @@ export default function App() {
           <Route path="/manager/new" element={<CreateJob />} />
           <Route path="/manager/feed" element={<Feed />} />
           <Route path="/manager/feed/:jobId" element={<Feed />} />
+          <Route path="/manager/shortlist" element={<Shortlist />} />
+          <Route path="/manager/shortlist/:jobId" element={<Shortlist />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

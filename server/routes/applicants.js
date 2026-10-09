@@ -13,11 +13,10 @@ router.post('/:id/status', async (req, res) => {
   }
   if (!mongoose.isValidObjectId(req.params.id)) return res.status(404).json({ error: 'Applicant not found' });
 
-  const applicant = await Applicant.findByIdAndUpdate(req.params.id, { status }, { new: true }).select(
-    '-resume.data -image.data'
-  );
+  // Called from the blind feed, so don't echo the name back.
+  const applicant = await Applicant.findByIdAndUpdate(req.params.id, { status }, { new: true }).select('status');
   if (!applicant) return res.status(404).json({ error: 'Applicant not found' });
-  res.json(applicant.toCard());
+  res.json({ _id: applicant._id, status: applicant.status });
 });
 
 module.exports = router;

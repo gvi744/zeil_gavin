@@ -4,7 +4,9 @@ Hiring managers swipe through Hinge-style applicant cards (a project image and t
 
 ## Features
 
-- **For You Page (FYP) for managers.** One applicant card at a time, best match first: name, project image, three Q&As, matched skill tags and a one-line "Why you're seeing this". Skip or Shortlist with the buttons or the ← / → keys, and open the resume in a new tab.
+- **Anonymous For You Page (FYP) for managers.** One applicant card at a time, best match first, shown only as "Candidate 3F9A": project image, three Q&As, matched skill tags and a one-line "Why you're seeing this". There's no name and no resume, and the feed API doesn't send either, so they can't leak through the network tab. Skip or Shortlist with the buttons or the ← / → keys.
+- **Shortlist page.** Names and resumes are revealed only after shortlisting. Each row shows the name, candidate code, score, tags, reason and a resume link, and expands to show the project image and answers.
+- **AI reasons never identify anyone.** The scoring prompt bans names, pronouns, gender, age and other identifying details. As a safety net, the server also replaces the applicant's name with "this candidate" if it slips through anyway.
 - **AI question writer and critic.** When creating a job, one AI drafts five Hinge-style questions and a second AI reviews each one, flagging any that are too technical, read like a standard interview question, aren't playful, are generic or irrelevant, or are risky (could touch age, family, health, religion, nationality and so on). The manager picks exactly three.
 - **AI applicant scoring.** Each application is scored once, when it's submitted: Gemini reads the resume PDF and the three answers and returns a 0–100 score, the job tags it found evidence for, and a one-sentence reason. Viewing the feed costs no AI calls.
 - **Applicant portal.** Browse jobs, upload a resume (PDF) and a project image, and answer the three questions (200 characters each).
@@ -39,7 +41,7 @@ MERN monorepo: `client/` is React + Vite + React Router with plain CSS, and `ser
 
 **Two AI roles for questions** (`server/ai/questions.js`). The writer and the critic are separate Gemini calls with separate system prompts. The critic gets the job plus the writer's five drafts and returns `{text, flagged, reason}` for each. Both outputs are logged to the server console, so you can watch the hand-off.
 
-**Scoring** (`server/ai/scoring.js`). One call per application, with the resume sent as inline PDF data alongside the Q&As and the job details. The returned tags are filtered so only tags that exist on the job are kept.
+**Scoring** (`server/ai/scoring.js`). One call per application, with the resume sent as inline PDF data alongside the Q&As and the job details. The returned tags are filtered so only tags that exist on the job are kept, and the applicant's name is removed from the reason if it appears (full name, first or last name, or possessive, in any capitalisation).
 
 **Reliability** (`server/ai/gemini.js`, `server/ai/schemas.js`):
 - Every call uses Gemini structured output (`responseMimeType: application/json` plus a `responseSchema`), and all the schemas live in one file.

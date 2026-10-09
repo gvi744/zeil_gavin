@@ -67,11 +67,22 @@ router.post('/', async (req, res) => {
   res.status(201).json(job);
 });
 
-// GET /api/jobs/:id/feed  -> "new" applicants, best match first, no buffers
+// GET /api/jobs/:id/feed  -> "new" applicants, best match first.
+// Blind: never includes the name or resume, so nothing leaks via the network tab.
 router.get('/:id/feed', async (req, res) => {
   const job = await findJob(req, res);
   if (!job) return;
   const applicants = await Applicant.find({ jobId: job._id, status: 'new' })
+    .select('-name -resume -image')
+    .sort({ score: -1, createdAt: 1 });
+  res.json(applicants.map((a) => a.toFeedCard()));
+});
+
+// GET /api/jobs/:id/shortlist  -> shortlisted applicants with names revealed
+router.get('/:id/shortlist', async (req, res) => {
+  const job = await findJob(req, res);
+  if (!job) return;
+  const applicants = await Applicant.find({ jobId: job._id, status: 'shortlisted' })
     .select('-resume.data -image.data')
     .sort({ score: -1, createdAt: 1 });
   res.json(applicants.map((a) => a.toCard()));
@@ -120,7 +131,7 @@ router.post('/:id/apply', (req, res, next) => {
   });
 
   // Single AI call per application. Never throws (falls back internally).
-  const result = await scoreApplicant({ job, resume: applicant.resume, answers });
+  const result = await scoreApplicant({ job, resume: applicant.resume, answers, name });
   applicant.score = result.score;
   applicant.matchedTags = result.matchedTags;
   applicant.reason = result.reason;

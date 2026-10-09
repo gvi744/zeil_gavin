@@ -22,6 +22,7 @@ export const api = {
   getJob: (id) => request(`/jobs/${id}`),
   createJob: (job) => request('/jobs', { method: 'POST', json: job }),
   getFeed: (jobId) => request(`/jobs/${jobId}/feed`),
+  getShortlist: (jobId) => request(`/jobs/${jobId}/shortlist`),
   apply: (jobId, formData) => request(`/jobs/${jobId}/apply`, { method: 'POST', body: formData }),
   setStatus: (applicantId, status) =>
     request(`/applicants/${applicantId}/status`, { method: 'POST', json: { status } }),

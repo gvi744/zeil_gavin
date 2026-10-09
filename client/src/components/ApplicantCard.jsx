@@ -1,15 +1,17 @@
 import MatchTags from './MatchTags.jsx';
 
+// Blind card: identified only by an anonymous code, never by name.
 export default function ApplicantCard({ applicant, jobTags, leaving }) {
-  const { name, imageUrl, answers, matchedTags, reason, score } = applicant;
+  const { code, imageUrl, answers, matchedTags, reason, score } = applicant;
+  const label = `Candidate ${code}`;
   return (
-    <article className={`applicant-card ${leaving ? `leaving-${leaving}` : ''}`} aria-label={`Applicant ${name}`}>
+    <article className={`applicant-card ${leaving ? `leaving-${leaving}` : ''}`} aria-label={label}>
       <header className="card-head">
-        <h2>{name}</h2>
+        <h2>{label}</h2>
         <span className="score" title="AI match score">{score}% match</span>
       </header>
 
-      <img className="card-image" src={imageUrl} alt={`Project by ${name}`} />
+      <img className="card-image" src={imageUrl} alt={`Project by ${label}`} />
 
       {answers.map((a) => (
         <section key={a.question} className="prompt">

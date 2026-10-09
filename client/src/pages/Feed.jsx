@@ -1,28 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { api } from '../api.js';
 import ApplicantCard from '../components/ApplicantCard.jsx';
+import JobSelect from '../components/JobSelect.jsx';
+import { useJobSelection } from '../hooks/useJobSelection.js';
 
 const SLIDE_MS = 320;
 
 export default function Feed() {
-  const { jobId } = useParams();
-  const navigate = useNavigate();
-  const [jobs, setJobs] = useState(null);
+  const { jobs, jobId, job, selectJob, error: jobsError } = useJobSelection('/manager/feed');
   const [queue, setQueue] = useState(null);
   const [total, setTotal] = useState(0);
   const [leaving, setLeaving] = useState(null); // 'left' | 'right' | null
   const [error, setError] = useState('');
   const busy = useRef(false);
-
-  // Load jobs; /manager/feed defaults to the newest one.
-  useEffect(() => {
-    api.listJobs().then(setJobs).catch((e) => setError(e.message));
-  }, []);
-
-  useEffect(() => {
-    if (!jobId && jobs && jobs.length) navigate(`/manager/feed/${jobs[0]._id}`, { replace: true });
-  }, [jobId, jobs, navigate]);
 
   // Load this job's feed (pre-scored, no AI calls here).
   useEffect(() => {
@@ -39,7 +30,7 @@ export default function Feed() {
   }, [jobId]);
 
   const current = queue && queue[0];
-  const job = jobs && jobs.find((j) => j._id === jobId);
+  const shownError = error || jobsError;
 
   const decide = useCallback(
     (status) => {
@@ -83,30 +74,22 @@ export default function Feed() {
   return (
     <div className="page feed-page">
       <div className="feed-top">
-        <label className="sr-only" htmlFor="job-select">Job</label>
-        <select
-          id="job-select"
-          value={jobId || ''}
-          onChange={(e) => navigate(`/manager/feed/${e.target.value}`)}
-          disabled={!jobs}
-        >
-          {!jobs && <option>Loading jobs…</option>}
-          {jobs && jobs.map((j) => <option key={j._id} value={j._id}>{j.title}</option>)}
-        </select>
+        <JobSelect jobs={jobs} jobId={jobId} onChange={selectJob} />
         {queue && queue.length > 0 && (
           <span className="muted small">{total - queue.length + 1} of {total}</span>
         )}
       </div>
 
-      {error && <p className="error" role="alert">{error}</p>}
+      {shownError && <p className="error" role="alert">{shownError}</p>}
 
-      {!queue && !error && <div className="card-skeleton" aria-label="Loading applicants" />}
+      {!queue && !shownError && <div className="card-skeleton" aria-label="Loading applicants" />}
 
       {queue && !current && (
         <div className="empty">
           <div className="empty-emoji" aria-hidden="true">🎉</div>
           <h1>You're all caught up</h1>
           <p className="muted">New applicants for {job ? job.title : 'this job'} will show up here.</p>
+          <Link className="btn btn-ghost" to={`/manager/shortlist/${jobId}`}>See shortlist</Link>
         </div>
       )}
 
@@ -117,9 +100,6 @@ export default function Feed() {
             <button type="button" className="btn btn-skip" onClick={() => decide('skipped')} disabled={!!leaving}>
               <span aria-hidden="true">✕</span> Skip
             </button>
-            <a className="btn btn-ghost" href={current.resumeUrl} target="_blank" rel="noopener noreferrer">
-              See resume
-            </a>
             <button type="button" className="btn btn-primary" onClick={() => decide('shortlisted')} disabled={!!leaving}>
               <span aria-hidden="true">♥</span> Shortlist
             </button>
