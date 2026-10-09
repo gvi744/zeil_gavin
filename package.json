@@ -1,0 +1,14 @@
+{
+  "name": "zeil_gavin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hinge-style applicant cards for hiring managers, with AI-written questions and AI scoring.",
+  "scripts": {
+    "build": "cd client && npm install --include=dev && npm run build && cd ../server && npm install --omit=dev",
+    "start": "node server/index.js",
+    "seed": "cd server && npm run seed"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
