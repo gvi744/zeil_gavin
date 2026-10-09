@@ -1,4 +1,6 @@
 // Clears the db and seeds one job + 9 pre-scored applicants. No AI calls.
+const fs = require('fs');
+const path = require('path');
 const mongoose = require('mongoose');
 const { connectDb } = require('./db');
 const Job = require('./models/Job');
@@ -216,6 +218,20 @@ const APPLICANTS = [
   },
 ];
 
+// Project images live in samples/seed/applicant-1..9.<ext>, in APPLICANTS order.
+// Falls back to a generated gradient if a file is missing.
+const IMAGE_DIR = path.join(__dirname, 'samples', 'seed');
+const IMAGE_TYPES = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif' };
+
+function seedImage(index, colors) {
+  for (const [ext, contentType] of Object.entries(IMAGE_TYPES)) {
+    const file = path.join(IMAGE_DIR, `applicant-${index + 1}${ext}`);
+    if (fs.existsSync(file)) return { data: fs.readFileSync(file), contentType };
+  }
+  console.warn(`[seed] no image for applicant ${index + 1}, using a placeholder`);
+  return { data: placeholderPng(colors[0], colors[1]), contentType: 'image/png' };
+}
+
 async function seed() {
   await connectDb();
   await Promise.all([Job.deleteMany({}), Applicant.deleteMany({})]);
@@ -230,7 +246,7 @@ async function seed() {
     jobId: job._id,
     name: a.name,
     resume: { data: placeholderPdf(a.name, a.resume), contentType: 'application/pdf' },
-    image: { data: placeholderPng(a.colors[0], a.colors[1]), contentType: 'image/png' },
+    image: seedImage(i, a.colors),
     answers: JOB.questions.map((question, qi) => ({ question, answer: a.answers[qi] })),
     score: a.score,
     matchedTags: a.matchedTags,
